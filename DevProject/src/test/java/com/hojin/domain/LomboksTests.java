@@ -12,8 +12,8 @@ import com.hojin.domin.*;
 public class LomboksTests {
 	@Test
 	public void testNoArsConstructor() {
-		Board board = new Board();
-		System.out.println(board);
+//		Board board = new Board();
+//		System.out.println(board);
 	}
 	@Test
 	public void testRequiredArsConstructor() {
@@ -22,9 +22,9 @@ public class LomboksTests {
 	}
 	@Test
 	public void testSetter() {
-		Board board = new Board();
-		board.setTitle("게시판 제목");
-		System.out.println(board.toString());
+//		Board board = new Board();
+//		board.setTitle("게시판 제목");
+//		System.out.println(board.toString());
 	}
 	@Test
 	public void testToStringExclude() {
@@ -33,8 +33,8 @@ public class LomboksTests {
 	}
 	@Test
 	public void testAllArgsconstructor() {
-		Board board = new Board(1, "테스트 제목1", "테스특 내용1", "홍길동", new Date());
-		System.out.println(board);
+//		Board board = new Board(1, "테스트 제목1", "테스특 내용1", "홍길동", new Date());
+//		System.out.println(board);
 	}
 	
 }
