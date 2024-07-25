@@ -1,0 +1,49 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  application:
+    name: devProject
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  security:
+    user:
+      name: user
+      password: password
+  #파일 크기 설정
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 120MB
+
+#  #데이터 베이스 정보
+#  datasource:
+#    url: jdbc:oracle:thin:@127.0.0.1:1521:XE
+#    username: hr
+#    password: 1234
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+#
+#  #jpa 정보
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#    generate-ddl: false
+#    show-sql: true
+#    database: oracle
+#    database-platform: org.hibernate.dialect.Oracle10gDialect
+
+#로그 정보
+logging:
+  level:
+    root: info
+    org.hibernate: trace
+    com.hojin.*: trace

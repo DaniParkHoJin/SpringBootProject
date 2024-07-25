@@ -15,7 +15,13 @@ import lombok.ToString;
 
 // 롬복
 
-@Data
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 @Builder
 //클래스는 직렬화되어야 한다.
 public class Board {

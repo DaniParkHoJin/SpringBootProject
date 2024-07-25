@@ -7,10 +7,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Spring Form Home02</title>
+<title>String 타입</title>
 </head>
 <body>
-	<h2>Spring Form</h2>
+	<h1>Home 02</h1>
+	
+	
+	
+	<%-- <h2>Spring Form</h2>
 	<form:form modelAttribute="member" method="post" action="register">
 		<table>
 			<tr>
@@ -29,7 +33,7 @@
 		<form:button name="register">등록</form:button>
 	</form:form>
 
-
+ --%>
 
 	<!--<h1>Member Info.</h1>
 <p>
