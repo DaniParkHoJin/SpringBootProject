@@ -10,9 +10,8 @@
 <title>컨트롤러에서 메시지 소스 사용</title>
 </head>
 <body>
-	<h1>환영합니다.<br>
-	<spring:message code="welcome.message" /> <br>
-	<spring:message code="welcome.message" arguments="${member.userId}" />
+	<h1>${message }<br>
+	
 	</h1>
 	
 	
