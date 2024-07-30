@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  application:
+    name: SpringJDBCBoard
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  datasource:
+
+    url: jdbc:oracle:thin:@127.0.0.1:1521:XE
+    username: hr
+    password: 1234
+    driver-class-name: oracle.jdbc.driver.OracleDriver
