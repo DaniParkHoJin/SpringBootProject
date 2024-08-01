@@ -3,12 +3,10 @@
 <mapper namespace="com.hojin.mapper.BoardMapper">
     <insert id="create">
         INSERT INTO mybatisboard
-        (
-         title,
+        (title,
          content,
          writer)
-        VALUES (
-                #{title},
+        VALUES (#{title},
                 #{content},
                 #{writer})
     </insert>
@@ -35,7 +33,7 @@
     </delete>
     <!-- _로 구분된 컬럼명을 소문자 낙타표기법의 프로퍼티명으로 자동 매핑한다. -->
     <select id="list" resultType="Board">
-<![CDATA[
+        <![CDATA[
         SELECT board_no,
                title,
                content,
@@ -46,6 +44,26 @@
         ORDER BY board_no DESC,
                  reg_date DESC
         ]]>
-</select>
+    </select>
 
+    <select id="search" resultType="Board">
+        <![CDATA[
+        SELECT board_no,
+            title,
+            content,
+            writer,
+            reg_date
+        FROM mybatisboard
+        WHERE board_no > 0
+        ]]>
+        <!-- title이   빈   값이    아니면   쿼리를   포함한다. -->
+        <!-- CONCAT('', '') : 두   개의   문자   결합    -->
+        <if test="title != null and title != ''">
+            AND title LIKE CONCAT('%', CONCAT(#{title}, '%'))
+        </if>
+        <![CDATA[
+ORDER BY board_no DESC,
+reg_date DESC
+]]>
+    </select>
 </mapper>

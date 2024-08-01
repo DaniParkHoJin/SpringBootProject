@@ -10,4 +10,5 @@ public interface BoardService {
     public void modify(Board board) throws Exception;
     public void remove(Integer boardNo) throws Exception;
     public List<Board> list() throws Exception;
+    public List<Board> search(String title) throws Exception;
 }

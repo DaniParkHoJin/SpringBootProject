@@ -3,10 +3,12 @@ package com.hojin.controller;
 import com.hojin.domain.Board;
 import com.hojin.service.BoardService;
 import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +21,20 @@ public class BoardController {
 
     @Autowired
     private BoardService service;
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String search(String title, Model model) throws Exception{
+        log.info("search");
+        Board board = new Board();
+        board.setTitle(title);
+
+        model.addAttribute("board", board);
+
+        model.addAttribute("list", service.search(title));
+        return "board/list";
+    }
+
+
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public void registerForm(Board board, Model model) throws Exception {
@@ -33,8 +49,9 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public void list(Model model) throws Exception {
+    public void list(@ModelAttribute("board") Board board, Model model) throws Exception {
         log.info("list");
+        model.addAttribute("board", new Board());
         model.addAttribute("list", service.list());
     }
 
