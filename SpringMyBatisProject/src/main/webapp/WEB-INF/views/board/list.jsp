@@ -10,7 +10,9 @@
     <title>MyBatis 게시판</title>
 </head>
 <body>
+<form:form modelAttribute="board" method="POST" action="search">
 <h2>게시글 목록</h2>
+TITLE : <form:input path="title" /><input type="submit" value="검색" />
 <a href="register">New</a>
 <table border="1">
     <tr>
@@ -41,5 +43,6 @@
         </c:otherwise>
     </c:choose>
 </table>
+</form:form>
 </body>
 </html>
