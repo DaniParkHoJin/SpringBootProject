@@ -3,6 +3,8 @@ package com.hojin.controller;
 
 import com.hojin.domain.Item3;
 import com.hojin.service.Item3Service;
+import com.hojin.util.MediaUtils;
+import com.hojin.util.UploadFileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.mybatis.spring.annotation.MapperScan;
@@ -53,7 +55,7 @@ public class Item3Controller {
         log.info("register item3.getFiles() : " + item3.toString());
         String[] files = item3.getFiles();
         for (int i = 0; i < files.length; i++) {
-            log.info("register files[i] = " + files[i]);
+            log.info("register files[i] = {}" , files[i]);
         }
         this.item3Service.regist(item3);
         model.addAttribute("msg", "등록이 완료되었습니다.");
@@ -71,7 +73,7 @@ public class Item3Controller {
     public String modify(Item3 item3, Model model) throws Exception {
         String[] files = item3.getFiles();
         for (int i = 0; i < files.length; i++) {
-            log.info("files[i] = " + files[i]);
+            log.info("files[i] ={} ", files[i]);
         }
         this.item3Service.modify(item3);
         model.addAttribute("msg", "수정이 완료되었습니다.");
@@ -96,9 +98,9 @@ public class Item3Controller {
     @RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
     public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
         log.info("originalName: " + file.getOriginalFilename());
-        String savedName = UploadFileUtils.uploadFile(uploadPath,
+        String savedName = UploadFileUtils.UploadFile(uploadPath,
                 file.getOriginalFilename(), file.getBytes());
-        log.info("savedName : " + savedName);
+        log.info("savedName :{} ", savedName);
         return new ResponseEntity<String>(savedName, HttpStatus.CREATED);
     }
 
@@ -107,7 +109,7 @@ public class Item3Controller {
     public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
         InputStream in = null;
         ResponseEntity<byte[]> entity = null;
-        log.info("displayFile NAME: " + fileName);
+        log.info("displayFile NAME:{} ", fileName);
         try {
 
             String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
@@ -134,13 +136,14 @@ public class Item3Controller {
     @ResponseBody
     public List<String> getAttach(@PathVariable("itemId") Integer itemId) throws
             Exception {
-        log.info("getAttach itemId: " + itemId);
-        return item3Service.getAttach(itemId);
+
+        log.info("getAttach itemId:{} ", itemId);
+        List<String> list = item3Service.getAttach(itemId);
+
+        list.forEach(filename->{
+            log.info("filename: {}", filename);
+        });
+
+        return list;
     }
 }
-
-
-
-}
-
-
