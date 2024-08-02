@@ -63,11 +63,6 @@ public class Item3ServiceImpl implements Item3Service {
     }
 
     @Override
-    public String getPicture(Integer itemId) throws Exception {
-        return mapper3.getPicture(itemId);
-    }
-
-    @Override
     public List<String> getAttach(Integer itemId) throws Exception {
         return mapper3.getAttach(itemId);
     }
