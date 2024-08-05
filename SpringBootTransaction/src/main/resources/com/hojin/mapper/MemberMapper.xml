@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hojin.mapper.MemberMapper">
+    <insert id="create" parameterType="Member">
+        <selectKey keyProperty="userNo" resultType="int" order="BEFORE">
+            SELECT TransactionMember_seq.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TransactionMember
+        (
+        user_no,
+        user_id,
+        user_pw,
+        user_name
+        )
+        VALUES
+        (
+        #{userNo},
+        #{userId},
+        #{userPw},
+        #{userName}
+        )
+    </insert>
+    <select id="read" resultType="Member">
+        SELECT mem.user_no,
+               mem.user_id,
+               user_pw,
+               user_name,
+               reg_date,
+               upd_date,
+               auth
+        FROM TransactionMember mem
+                 LEFT OUTER JOIN TransactionMember_auth auth ON mem.user_no = auth.user_no
+        WHERE mem.user_no = #{userNo}
+    </select>
+    <update id="update">
+        UPDATE TransactionMember
+        SET user_name =#{userName}
+        WHERE user_no = #{userNo}
+    </update>
+    <delete id="delete">
+        DELETE
+        FROM TransactionMember
+        WHERE user_no = #{userNo}
+    </delete>
+    <select id="list" resultType="Member">
+        SELECT user_no,
+               user_id,
+               user_pw,
+               user_name,
+               reg_date
+        FROM TransactionMember
+        ORDER BY reg_date DESC
+    </select>
+    <insert id="createAuth">
+        INSERT INTO TransactionMember_auth
+        (user_no,
+         auth)
+        VALUES (#{userNo},
+                #{auth})
+    </insert>
+    <delete id="deleteAuth">
+        DELETE
+        FROM TransactionMember_auth
+        WHERE user_no = #{userNo}
+    </delete>
+</mapper>
