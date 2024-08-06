@@ -4,7 +4,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,9 +11,7 @@
     <title>스프링 시큐리티 - 웹 화면 접근 정책</title>
 </head>
 <body>
-<h3>공지사항 등록 : 로그인한 관리자만 접근 가능</h3>
-<form action="/logout" method="post">
-    <sec:csrfInput />
-    <button>로그아웃</button>
+<h3>공지사항 목록 : 모두가 접근 가능</h3>
+<a href="register">공지사항 등록</a>
 </body>
 </html>
