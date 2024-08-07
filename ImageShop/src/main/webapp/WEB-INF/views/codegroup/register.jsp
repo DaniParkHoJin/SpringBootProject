@@ -19,7 +19,7 @@
 </table>
 </form:form>
 <div>
-    <<button type="submit" id="btnRegister"><spring:message code="action.register" /></button>
+    <button type="submit" id="btnRegister"><spring:message code="action.register" /></button>
     <button type="submit" id="btnList"><spring:message code="action.list"/></button>
 </div>
 

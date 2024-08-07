@@ -6,16 +6,18 @@ import lombok.ToString;
 
 import java.util.Date;
 
-@Getter
 @Setter
+@Getter
 @ToString
-public class CodeGroup {
+public class CodeDetail {
 
-    private String  groupCode;
-    private String  groupName;
+    // 테이블과 비교 필요
+    private String groupCode;
+    private String codeValue;
+    private String codeName;
+    private int sortSeq;
     private String useYn;
     private Date regDate;
     private Date updDate;
-
 
 }
