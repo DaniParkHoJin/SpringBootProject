@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import javax.sql.DataSource;
 
 @EnableWebSecurity
+// 시큐리티 애너테이션 활성화를 위한 설정
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // 테이터 소스
     @Autowired
@@ -45,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 // 데이터 소스를 지정하고 테이블을 이용해서 기존 로그인 정보를 기록
 // 쿠키의 유효시간(24시간)을 지정한다.
         http.rememberMe()
-                .key("zeus")
+                .key("hojin")
                 .tokenRepository(createJDBCRepository())
                 .tokenValiditySeconds(60 * 60 * 24);
     }
