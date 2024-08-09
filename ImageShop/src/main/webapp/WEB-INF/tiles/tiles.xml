@@ -41,5 +41,9 @@ Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
         <put-attribute name="content" value="/WEB-INF/views/auth/{1}.jsp"
         />
     </definition>
-
+    <!-- 회원 게시판 페이지에 대한 레이아웃 템플릿 구성 요소를 정의한다. -->
+    <definition name="board/*" extends="main-template">
+        <put-attribute name="title" value="Board"/>
+        <put-attribute name="content" value="/WEB-INF/views/board/{1}.jsp"/>
+    </definition>
 </tiles-definitions>

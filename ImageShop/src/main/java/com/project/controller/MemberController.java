@@ -7,6 +7,7 @@ import com.project.service.MemberService;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -71,8 +72,9 @@ public class MemberController {
 
     }
 
-    // 목록페이지
+    // 목록페이지, 관리자 권한을 가진 사용자만 접근이 가능하다.
     @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void list(Model model) throws Exception {
         model.addAttribute("list", service.list());
     }
@@ -107,8 +109,9 @@ public class MemberController {
         return "redirect:/user/list";
     }
 
-    // 삭제 처리
+    // 삭제 처리, 관리자 권한을 가진 사용자만 접근이 가능
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String remove(int userNo, RedirectAttributes rttr) throws
             Exception {
         service.delete(userNo);
