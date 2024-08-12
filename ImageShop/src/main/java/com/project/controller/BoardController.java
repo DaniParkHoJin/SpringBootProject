@@ -1,5 +1,6 @@
 package com.project.controller;
 
+import com.project.common.domain.CodeLabelValue;
 import com.project.common.security.domain.CustomUser;
 import com.project.domain.Board;
 import com.project.domain.Member;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/board")
@@ -64,8 +68,20 @@ public class BoardController {
         Pagination pagination = new Pagination();
 
         pagination.setPageRequest(pageRequest);
-        pagination.setTotalCount(service.count());
+
+        pagination.setTotalCount(service.count(pageRequest));
         model.addAttribute("pagination", pagination);
+
+        // 검색 유형의 코드명과 코드값을 정의한다.
+        List<CodeLabelValue> searchTypeCodeValueList = new ArrayList<CodeLabelValue>();
+        searchTypeCodeValueList.add(new CodeLabelValue("n", "---"));
+        searchTypeCodeValueList.add(new CodeLabelValue("t", "Title"));
+        searchTypeCodeValueList.add(new CodeLabelValue("c", "content"));
+        searchTypeCodeValueList.add(new CodeLabelValue("w", "Writer"));
+        searchTypeCodeValueList.add(new CodeLabelValue("tc", "Title OR Content"));
+        searchTypeCodeValueList.add(new CodeLabelValue("cw", "Content OR Writer"));
+        searchTypeCodeValueList.add(new CodeLabelValue("tcw", "Title OR Content OR Writer"));
+        model.addAttribute("searchTypeCodeValueList", searchTypeCodeValueList);
     }
 
     // 게시글 상세 페이지, 페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다
@@ -134,6 +150,7 @@ public class BoardController {
 
     // 게시글 삭제 처리
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
     public String delete(int boardNo, PageRequest pageRequest,
                          RedirectAttributes rttr) throws Exception {
         service.delete(boardNo);

@@ -26,5 +26,5 @@ public interface BoardMapper {
     public void delete(Integer boardNo) throws Exception;
 
     // 게시글 전체 건수를 반환한다.
-    public int count() throws Exception;
+    public int count(PageRequest pageRequests) throws Exception;
 }
