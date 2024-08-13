@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.CoinMapper">
+
+    <insert id="create" >
+        INSERT INTO CHARGE_COIN_HISTORY
+            (HISTORY_NO, USER_NO, AMOUNT)
+        VALUES (charge_coin_history_seq.NEXTVAL,
+                #{userNo},
+                #{amount})
+    </insert>
+    <update id="charge" >
+        UPDATE MEMBER
+            SET coin = (coin + #{amount}),
+                UPD_DATE = SYSDATE
+        WHERE USER_NO = #{userNo}
+    </update>
+    <select id="list" resultType="ChargeCoin">
+        <![CDATA[
+        SELECT HISTORY_NO, USER_NO, AMOUNT, REG_DATE
+            FROM CHARGE_COIN_HISTORY
+        WHERE HISTORY_NO > 0
+        AND USER_NO = #{userNo}
+        ORDER BY HISTORY_NO DESC
+        ]]>
+    </select>
+    <!-- 코인 지급 -->
+    <update id="pay">
+        UPDATE member
+        SET coin = (coin - #{amount}),
+            upd_date = SYSDATE
+        WHERE user_no = #{userNo}
+    </update>
+    <!-- 구매 내역 등록 -->
+    <insert id="createPayHistory">
+        INSERT INTO pay_coin_history
+        (
+            history_no,
+            user_no,
+            item_id,
+            amount
+        )
+        VALUES
+            (
+                pay_coin_history_seq.NEXTVAL,
+                #{userNo},
+                #{itemId},
+                #{amount}
+            )
+    </insert>
+    <!-- 구매 내역 조회-->
+    <select id="listPayHistory" resultType="payCoin">
+        <![CDATA[
+        SELECT a.HISTORY_NO, a.USER_NO, a.ITEM_ID, b.ITEM_NAME, a.AMOUNT, a.REG_DATE
+            FROM PAY_COIN_HISTORY a INNER JOIN Item b ON a.item_id = b.item_id
+        WHERE a.HISTORY_NO > 0
+        AND USER_NO = #{userNo}
+        ORDER BY a.HISTORY_NO DESC
+        ]]>
+    </select>
+</mapper>
