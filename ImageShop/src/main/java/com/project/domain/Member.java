@@ -24,7 +24,7 @@ public class Member {
 
   private String job;
 
-  private String coin;
+  private Integer coin;
   private Date regDate;
 
   private Date updDate;
